@@ -12,7 +12,7 @@
 	<artifactId>Auto_Escola_3ESPA</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Auto_Escola_3ESPA</name>
-	<description>Projeto de back-end para app de auto escola - 3ESPA</description>
+	<description>Projeto de back-end para app de auto escola 3ESPA</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -83,6 +83,12 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>4.5.1</version>
 		</dependency>
 	</dependencies>
 
