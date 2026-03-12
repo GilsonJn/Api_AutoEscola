@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -23,13 +24,19 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository repository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @PostMapping
     @Transactional
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<DadosDetalhamentoUsuario> cadastrarUsuario(
             @RequestBody @Valid DadosCadastroUsuario dados,
             UriComponentsBuilder uriBuilder){
-        Usuario usuario = new Usuario(dados);
+
+        String senhaHash = passwordEncoder.encode(dados.senha());
+        Usuario usuario = new Usuario(dados, senhaHash);
+
         URI uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
         repository.save(usuario);
         return  ResponseEntity.created(uri).body(new DadosDetalhamentoUsuario(usuario));
@@ -55,8 +62,15 @@ public class UsuarioController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<DadosDetalhamentoUsuario> atualizarUsuario(
             @RequestBody @Valid DadosAtualizacaoUsuario dados) {
+
         Usuario usuario = repository.getReferenceById(dados.id());
-        usuario.atualizarInformacoes(dados);
+
+        String senhaHash = null;
+        if (dados.senha() != null) {
+            senhaHash = passwordEncoder.encode(dados.senha());
+        }
+
+        usuario.atualizarInformacoes(dados, senhaHash);
         return ResponseEntity.ok(new DadosDetalhamentoUsuario(usuario));
     }
 
@@ -67,11 +81,14 @@ public class UsuarioController {
             @RequestBody @Valid DadosAtualizacaoSenhaUsuario dados,
             @AuthenticationPrincipal Usuario usuarioLogado) {
 
-        if (!usuarioLogado.getId().equals(dados.id())) {
+        if (usuarioLogado.getPerfil() == Role.USER && !usuarioLogado.getId().equals(dados.id())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
+
         Usuario usuario = repository.getReferenceById(dados.id());
-        usuario.atualizarSenha(dados);
+        String novaSenhaHash = passwordEncoder.encode(dados.senha());
+        usuario.atualizarSenha(novaSenhaHash);
+
         return ResponseEntity.ok(new DadosDetalhamentoUsuario(usuario));
     }
 
