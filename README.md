@@ -1,7 +1,7 @@
 # Api_AutoEscola 🚗
 
 ## Grupo:
-- Gilson Dias Ramos Junio - RM552345
+- Gilson Dias Ramos Junior - RM552345
 - Isabelle Toricelli da Silva - RM552806
 - Jeferson Gabriel de Mendonça - RM553149
 
