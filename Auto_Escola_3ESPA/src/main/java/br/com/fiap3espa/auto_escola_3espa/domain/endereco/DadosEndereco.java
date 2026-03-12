@@ -1,7 +1,6 @@
 package br.com.fiap3espa.auto_escola_3espa.domain.endereco;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public record DadosEndereco(
@@ -23,5 +22,5 @@ public record DadosEndereco(
 
         @NotBlank
         @Pattern(regexp = "[0-9]{8}")
-        String cep) {
-}
+        String cep
+) { }

@@ -21,6 +21,7 @@ public record DadosCadastroInstrutor(
 
         @NotBlank
         @Pattern(regexp = "\\d{9,11}")
+        //@UniqueElements
         String cnh,
 
         @NotNull
@@ -28,5 +29,5 @@ public record DadosCadastroInstrutor(
 
         @NotNull
         @Valid
-        DadosEndereco endereco) {
-}
+        DadosEndereco endereco
+) { }

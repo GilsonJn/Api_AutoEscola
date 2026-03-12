@@ -10,7 +10,7 @@ public record DadosDetalhamentoInstrutor(
         String cnh,
         Especialidade especialidade,
         Endereco endereco) {
-    public DadosDetalhamentoInstrutor(Instrutor instrutor) {
+    public DadosDetalhamentoInstrutor(Instrutor instrutor){
         this(instrutor.getId(), instrutor.getNome(), instrutor.getEmail(), instrutor.getTelefone(), instrutor.getCnh(), instrutor.getEspecialidade(), instrutor.getEndereco());
     }
 }

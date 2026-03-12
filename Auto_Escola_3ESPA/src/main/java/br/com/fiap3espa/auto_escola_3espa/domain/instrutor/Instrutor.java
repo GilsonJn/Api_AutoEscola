@@ -2,17 +2,16 @@ package br.com.fiap3espa.auto_escola_3espa.domain.instrutor;
 
 import br.com.fiap3espa.auto_escola_3espa.domain.endereco.Endereco;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "instrutores")
+@Table(name="instrutores")
 @Entity(name = "Instrutor")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 public class Instrutor {
 
     @Id
@@ -27,7 +26,7 @@ public class Instrutor {
     @Enumerated(EnumType.STRING)
     private Especialidade especialidade;
 
-    @Embedded
+    @Embedded //Buca a info outra classe
     private Endereco endereco;
 
     public Instrutor(DadosCadastroInstrutor dados) {
@@ -38,16 +37,17 @@ public class Instrutor {
         this.cnh = dados.cnh();
         this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
+
     }
 
-    public void atualizarInformacoes(DadosAtualizacaoInstutor dados) {
-        if(dados.nome() != null) {
+    public void atualizarInformacoes(@Valid DadosAtualizarInstrutor dados) {
+        if (dados.nome() != null) {
             this.nome = dados.nome();
         }
-        if(dados.telefone() != null) {
+        if (dados.telefone() != null) {
             this.telefone = dados.telefone();
         }
-        if(dados.endereco() != null) {
+        if (dados.endereco() != null) {
             this.endereco.atualizarInformacoes(dados.endereco());
         }
     }

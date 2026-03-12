@@ -13,9 +13,7 @@ import java.util.List;
 public class TratadorGlobalDeErros {
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<Void> lidarComNotFoundException() {
-        return ResponseEntity.notFound().build();
-    }
+    public ResponseEntity<Void> lidarComNotFoundException() { return ResponseEntity.notFound().build(); }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity lidarComBadRequestException(MethodArgumentNotValidException ex) {
@@ -24,8 +22,6 @@ public class TratadorGlobalDeErros {
     }
 
     private record DadosBadRequest(String campo, String mensagem) {
-        public DadosBadRequest(FieldError erro) {
-            this(erro.getField(), erro.getDefaultMessage());
-        }
+        public DadosBadRequest(FieldError erro) {this(erro.getField(), erro.getDefaultMessage());}
     }
 }
