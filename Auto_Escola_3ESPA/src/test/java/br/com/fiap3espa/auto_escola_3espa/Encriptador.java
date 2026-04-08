@@ -6,7 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class Encriptador {
     public static void main(String[] args) {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
-        String hash = encoder.encode("admin");
+        String hash = encoder.encode("123");
         System.out.println(hash);
     }
 }
