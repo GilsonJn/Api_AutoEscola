@@ -50,7 +50,7 @@ public class AgendaDeInstrucoes {
             throw new ValidacaoException("Não existe instrutor disponivel na data/hora informada!");
         }
 
-        Instrucao instrucao = new Instrucao(null, aluno, instrutor, dados.data());
+        Instrucao instrucao = new Instrucao(null, aluno, instrutor, dados.data(), true);
         instrucaoRepository.save(instrucao);
         return new DadosDetalhamentoInstrucao(instrucao);
     }

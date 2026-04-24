@@ -11,7 +11,7 @@ public record DadosDetalhamentoInstrucao(
         String nomeInstrutor,
         Especialidade especialidade,
 
-        @JsonFormat(pattern = "dd/MM/yyyy - HH:mm")
+        @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
         LocalDateTime data
 ) {
     public DadosDetalhamentoInstrucao(Instrucao instrucao){

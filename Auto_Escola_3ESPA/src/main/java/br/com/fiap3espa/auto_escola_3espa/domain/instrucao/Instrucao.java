@@ -26,9 +26,15 @@ public class Instrucao {
     private Aluno aluno;
 
     @ManyToOne
-    @JoinColumn(name = "instrucao_id")
+    @JoinColumn(name = "instrutor_id")
     private Instrutor instrutor;
 
     private LocalDateTime data;
+
+    private Boolean ativo;
+
+    public void cancelar() {
+        this.ativo = false;
+    }
 
 }
